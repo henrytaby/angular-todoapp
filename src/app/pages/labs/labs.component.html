@@ -1,0 +1,134 @@
+<div class="container">
+
+  <h1>Hola este es mi primer Proyecto</h1>
+  <h2>{{ welcome }}</h2>
+
+  <ul>
+    <li *ngFor="let task of tasks()">
+      {{ task }}
+    </li>
+  </ul>
+  <hr />
+  <h2>{{ 'Hola '.repeat(4) }}</h2>
+  <p>la suma es 3 + 3 es {{ 3 + 3 }}</p>
+  <p>Hola soy {{ name() }} y tengo {{ age }} años</p>
+
+  <hr />
+
+  <img [src]="img" alt=""><br>
+  <input type="text" [value]="name()" /><br>
+  <button [disabled]="disabled">Click me</button><br>
+
+  <p>person: {{ person().name }}</p>
+  <img [src]="person().avatar" alt="">
+  <p>Age: {{ person().age }}</p>
+
+  <hr />
+
+  <button (click)="clickHandler()">Click me Hola</button>
+  <br>
+  <button (dblclick)="clickHandler()">Double Click</button>
+  <br>
+  <p>(change)</p>
+  <input type="number" [value]="person().age" (change)="changeHandler($event)"/><br>
+
+  <p>(change)</p>
+  <input type="text" [value]="person().name" (change)="changeHandler($event)"/><br>
+
+  <p>(keydown)</p>
+  <input type="text" [value]="person().name" (keydown)="keydownHandler($event)"/><br>
+
+  <hr />
+
+
+  <p>Total: {{ tasks().length }}</p>
+  <ul>
+    <li *ngFor="let task of tasks(); index as i">
+      {{ i + 1 }} -
+      {{ task }}
+    </li>
+  </ul>
+
+  <p>(Signal)</p>
+  <input type="text" [value]="name()" (change)="changeHandler($event)"/><br>
+
+  <p>name: {{ name() }}</p>
+
+
+  <hr />
+  <p>Condicional</p>
+  <div *ngIf="1!==1">
+    My contend
+  </div>
+
+
+  <div *ngIf="name().toLowerCase()==='henry'">
+    My contend --------
+  </div>
+
+  <br><br>
+  <input type="number" [value]="person().age" (change)="changeAge($event)"/>
+  <br><br>
+
+
+  <div *ngIf="person().name==='henry' && person().age > 18; else elseBlock">
+    Soy {{ person().name }} y tengo {{ person().age }} años de edad
+    Soy Mayor de 18
+  </div>
+
+
+
+
+
+  <ng-template #elseBlock>
+    Soy {{ person().name }} y tengo {{ person().age }}
+    soy menor de 18
+  </ng-template>
+
+
+  <hr />
+
+  <input type="text" [value]="person().name" (change)="changeName($event)"/>
+  <div [ngSwitch]="person().name">
+    <div *ngSwitchCase="'henry'">
+      Soy {{ person().name }}
+    </div>
+    <div *ngSwitchCase="'jose'">
+      Soy {{ person().name }}
+    </div>
+    <div *ngSwitchDefault>
+      No soy nadie
+    </div>
+
+  </div>
+
+  <hr />
+
+  <input type="color" [formControl] ="colorCtrl" />
+  <p>color: {{ colorCtrl.value }}</p>
+
+  <hr />
+  <svg>
+    <g>
+      <rect x="10" y="10" width="100" height="100" [attr.fill]="colorCtrl.value"></rect>
+    </g>
+  </svg>
+
+  <hr />
+  <input type="number" [formControl] ="widthCrtrl" />
+  <span class="box" [style.width.px]="widthCrtrl.value">
+
+  </span>
+
+  <hr />
+
+  <p>
+    <input type="text" [formControl]="nameCtrl" /> <br />
+    <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre Invalido</span>
+  </p>
+  <p>
+    <input type="text">
+  </p>
+
+</div>
+

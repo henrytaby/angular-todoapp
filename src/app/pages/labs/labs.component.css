@@ -1,0 +1,20 @@
+.container{
+  padding: 3rem;
+}
+.box{
+  height: 100px;
+  width: 100px;
+  background-color: red;
+  border: 1px solid #ccc;
+  display: block;
+
+}
+.message-error{
+  background-color: red;
+  color: white;
+  opacity: 0  ;
+  transition: all linear .5s;
+}
+.message-error.show{
+  opacity: 1;
+}

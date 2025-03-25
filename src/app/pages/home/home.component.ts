@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, effect, inject, Injector } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl,ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task } from './../../models/task.models';
@@ -11,23 +11,7 @@ import { Task } from './../../models/task.models';
 })
 export class HomeComponent {
 
-  tasks    = signal<Task[]>( [
-    {
-      id: Date.now(),
-      title: 'Instalar el angular CLI',
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: 'Crear proyecto',
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: 'Crear Componentes',
-      completed: false
-    }
-  ]);
+  tasks    = signal<Task[]>([]);
 
 
   filter = signal<'all' | 'pending' | 'completed'>('all');
@@ -53,6 +37,25 @@ export class HomeComponent {
       Validators.minLength(3)
     ]
   });
+
+  injector = inject(Injector)
+
+  ngOnInit() {
+    const tasks = localStorage.getItem('tasks');
+    if(tasks) {
+      this.tasks.set(JSON.parse(tasks));
+    }
+    this.trackTasks();
+  }
+
+  trackTasks() {
+    effect(()=>{
+      const tasks = this.tasks();
+      console.log(tasks);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      console.log("cambio algo");
+    },{injector: this.injector});
+  }
 
   changeHandler() {
     if(this.newTaskCtrl.valid) {

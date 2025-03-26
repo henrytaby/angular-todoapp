@@ -66,10 +66,23 @@
     My contend --------
   </div>
 
+  @if (name().toLowerCase()==='henry') {
+    <div>Soy HENRY ====================</div>
+  }
+
+
+
   <br><br>
   <input type="number" [value]="person().age" (change)="changeAge($event)"/>
   <br><br>
 
+  @if( person().name==='henry' && person().age > 18) {
+    <div>Soy {{ person().name }} y tengo {{ person().age }} años de edad</div>
+    <div>Soy Mayor de 18</div>
+  } @else {
+    <div>Soy {{ person().name }} y tengo {{ person().age }}</div>
+    <div>soy menor de 18</div>
+  }
 
   <div *ngIf="person().name==='henry' && person().age > 18; else elseBlock">
     Soy {{ person().name }} y tengo {{ person().age }} años de edad
@@ -129,6 +142,35 @@
   <p>
     <input type="text">
   </p>
+
+  <hr />
+  <p><strong>New Switch</strong></p>
+  <input type="text" [value]="person().name" (change)="changeName($event)"/>
+  <div [ngSwitch]="person().name">
+    <div *ngSwitchCase="'henry'">
+      Soy {{ person().name }}
+    </div>
+    <div *ngSwitchCase="'jose'">
+      Soy {{ person().name }}
+    </div>
+    <div *ngSwitchDefault>
+      No soy nadie
+    </div>
+  </div>
+  <hr />
+  @switch (person().name) {
+    @case('henry') {
+      <div>Soy {{ person().name }}</div>
+    }
+    @case('jose') {
+      <div>Soy {{ person().name }}</div>
+    }
+    @default {
+      <div>No soy nadie</div>
+    }
+
+  }
+
 
 </div>
 
